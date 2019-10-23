@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: Payara
+  name: payara
   annotations:
-    description: Payara Template
-    openshift.io/display-name: Payara Template
+    description: payara Template
+    openshift.io/display-name: payara Template
     iconClass: icon-infinispan
-    tags: Payara
+    tags: payara
 labels:
-  template: Payara-builder
-  component: Payara
+  template: payara-builder
+  component: payara
 parameters:
 - name: GIT_REPOSITORY
   displayName: Git repository
@@ -24,7 +24,7 @@ parameters:
 - name: IMAGE_STREAM_NAME
   displayName: Image Stream Name
   description: The name of the output image stream.
-  value: Payara
+  value: payara
   required: true
 - name: IMAGE_STREAM_VERSION
   displayName: Image Stream Version
