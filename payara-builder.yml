@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: Payara
+  annotations:
+    description: Payara Template
+    openshift.io/display-name: Payara Template
+    iconClass: icon-infinispan
+    tags: Payara
+labels:
+  template: Payara-builder
+  component: Payara
+parameters:
+- name: GIT_REPOSITORY
+  displayName: Git repository
+  value: https://github.com/manepallipavankumar/Payara.git
+  description: The Git source code repository.
+  required: true
+- name: GIT_REF
+  displayName: Git branch
+  description: The Git source reference.
+  value: master
+  required: true
+- name: IMAGE_STREAM_NAME
+  displayName: Image Stream Name
+  description: The name of the output image stream.
+  value: Payara
+  required: true
+- name: IMAGE_STREAM_VERSION
+  displayName: Image Stream Version
+  description: The version of the output image stream.
+  value: latest
+  required: true
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: ${IMAGE_STREAM_NAME}
+  spec:
+    tags:
+    - name: latest
+      from:
+        kind: ImageStreamTag
+        name: ${IMAGE_STREAM_VERSION}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: confluent-base-builder
+  spec:
+    runPolicy: Serial
+    source:
+      git:
+        uri: ${GIT_REPOSITORY}
+        ref: ${GIT_REF}
+    strategy:
+      type: Docker
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${IMAGE_STREAM_NAME}:${IMAGE_STREAM_VERSION}
