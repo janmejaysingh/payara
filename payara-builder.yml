@@ -13,7 +13,7 @@ labels:
 parameters:
 - name: GIT_REPOSITORY
   displayName: Git repository
-  value: https://github.com/manepallipavankumar/Payara.git
+  value: https://github.com/janmejaysingh/payara.git
   description: The Git source code repository.
   required: true
 - name: GIT_REF
